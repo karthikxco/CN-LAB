@@ -1,0 +1,122 @@
+program one (error detection)
+
+def divide(div,divisor,rem):
+  cur=0
+  while True:
+      for i in range(len(divisor)):
+            rem[cur + i]^=divisor[i]
+      while rem[cur]==0 and cur!=len(rem) - 1:
+          cur+=1
+      if len(rem) - cur < len(divisor):
+          break
+  return rem
+
+data_bits=int(input("Enter number of data bits:"))
+data=[int(input("Enter data bits{i + 1}:"))for i in range(data_bits)]
+
+divisor_bits=int(input("Enter number of bits in divisor:"))
+divisor=[int(input("Enter divisor bits{i + 1}:"))for i in range(divisor_bits)]
+
+tot_length=data_bits+divisor_bits-1
+
+div=data+[0]*(divisor_bits-1)
+rem=div.copy()
+crc=[0]*len(div)
+
+print("dividend(after appending 0's)are:",div)
+
+rem=divide(div,divisor,rem)
+
+crc=[[div[i]^rem[i] for i in range(len(div))]
+print("\nCRC code:")
+print(" ".join(map(str,crc)))
+
+crc_input=[int(input("Enter crc bits{i + 1} of {tot_length} bits:"))for i in range(tot_length)]
+
+for j in range(len(crc)):
+    rem[j]=crc[j]
+rem=divide(crc,divisor,rem)
+error_detected=any(rem[i] !=0 for i in range(len(rem)))
+if error_detected:
+    print("error")
+else:
+    print("no error")
+
+
+
+2) bellman ford
+
+import sys
+
+MAX_VALUE=999
+
+def bellman_ford(number_of_vertices,source,adjacency_matrix):
+    distances=[MAX_VALUE]*(number_of_vertices + 1)
+    distances[source]=0
+
+    for _in range(number_of_vertices - 1):
+        for source_node in range(1, number_of_vertices + 1):
+            for destination_node in range(1, number_of_vertices + 1):
+                if adjacency_matrix[source_node][destination_node]!=MAX_VALUE:
+                    new_distance=distances[source_node]+adjacency_matrix[source_node][destination_node]
+                    if distances[destination_node] > new_distance:
+                        distances[destination_node]=new_distance
+
+    for vertex in range(1, number_of_vertices + 1):
+        print("distance from source",source,"to",vertex,"is",distances[vertex])
+
+number_of_vertices=int(input("Enter the number of vetrices:"))
+adjaceny_matrix=[[MAX_VALUE]*(number_of_vertices + 1) for _ in range(number_of_vertices + 1)]
+print("enter the adjacency matrix:")
+for source_node in range(1, number_of_vertices + 1):
+            for destination_node in range(1, number_of_vertices + 1):
+                 adjacency_matrix[source_node][destination_node]=int(input())
+                    if source_node==destination_node:
+                        adjacency_matrix[source_node][destination_node]=0
+                    elif adjacency_matrix[source_node][destination_node]==0:
+                        adjacency_matrix[source_node][destination_node]=MAX_VALUE
+
+source=int(input("Enter the source vertex:"))
+bellman_ford(number_of_vertices,source,adjacency_matrix)
+
+
+3)dijkstra's
+
+import sys
+total_vertex=9
+def minimum_distance(distance,sp_set):
+    m=sys.maxsize
+    m_index=0
+    for vx in range(total_vertex):
+        if sp_set[vx] == False and distance[vx]<=m:
+            m=distance[vx]
+            m_index=vx
+    return m_index
+
+def print_solution(distance,n):
+    print("the shortest distance from the source 0th node to all other nodes are:")
+    for j in range(n):
+        print("To",j,"the shortest distance:",distance[j])
+
+def dijkstra(graph,s):
+    distance=[sys.maxsize]*total_vertex
+    sp_set=[False]*total_vertex
+    distance[s]=0
+
+    for _in range(total_vertex - 1):
+        u=minimum_distance(distance,sp_set)
+        sp_set[u] = True
+        for v in range(total_vertex):
+            if sp_set[v] == False and graph[u][v]!= distance[u]!= sys.maxsize and graph[u][
+0000000000000000000000
+
+
+
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+
+00000000000000000000000000000000000000
+
+
+
